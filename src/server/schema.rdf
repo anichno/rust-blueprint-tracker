@@ -1,0 +1,32 @@
+team_members: [uid] @reverse .
+team_name: string .
+team_id: string @index(hash) .
+
+type team {
+    team_id
+    team_name
+    team_members
+}
+
+authentication_id: string @index(hash) .
+user_name: string .
+user_id: string @index(hash) .
+blueprints: [uid] .
+color: string .
+
+type user {
+    authentication_id
+    user_name
+    user_id
+    <~team_members>
+    blueprints
+    color
+}
+
+bp_id: int .
+bp_date: dateTime .
+
+type blueprint {
+    bp_id
+    bp_date
+}

@@ -1,0 +1,20 @@
+{
+  "name": "Rustlabs Team Blueprint Tracker",
+  "version": "1.1",
+  "description": "Tracks known blueprints across the team",
+  "permissions": ["webNavigation","activeTab","declarativeContent", "storage"],
+  "background": {
+    "page": "background.html",
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://rustlabs.com/blueprint-tracker"],
+      "js": ["rustlabs_interact.js"],
+      "css": ["rustlabs_interact.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "options_page": "options.html",
+  "manifest_version": 2
+}

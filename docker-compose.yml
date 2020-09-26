@@ -1,0 +1,42 @@
+version: "3.3"
+services:
+  dgraph:
+    image: dgraph/standalone
+    networks:
+      - rust_blueprint_network
+    expose:
+      - 9080
+    volumes:
+      - type: volume
+        source: dgraph
+        target: /dgraph
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+  rust_bp_server:
+    image: rust_blueprint_server
+    ports:
+      - "9090:9090"
+    networks:
+      - rust_blueprint_network
+    volumes:
+      - type: volume
+        source: rust_bp_init
+        target: /dgraph
+    environment:
+      RUST_LOG: debug
+    restart:
+      on-failure
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+volumes:
+  dgraph:
+  rust_bp_init:
+
+networks:
+  rust_blueprint_network:
